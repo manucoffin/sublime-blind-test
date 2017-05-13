@@ -13,14 +13,6 @@
     return hashParams;
   }
 
-  // var userProfileSource = document.getElementById('user-profile-template').innerHTML,
-  //     userProfileTemplate = Handlebars.compile(userProfileSource),
-  //     userProfilePlaceholder = document.getElementById('user-profile');
-
-  // var oauthSource = document.getElementById('oauth-template').innerHTML,
-  //     oauthTemplate = Handlebars.compile(oauthSource),
-  //     oauthPlaceholder = document.getElementById('oauth');
-
   var params = getHashParams();
 
   var access_token = params.access_token,

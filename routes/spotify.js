@@ -40,7 +40,7 @@ router.get('/login', function(req, res) {
   res.cookie(stateKey, state);
 
   // your application requests authorization
-  var scope = 'user-read-private user-read-email';
+  var scope = 'user-read-private user-read-email playlist-modify-public playlist-modify-private playlist-read-private';
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
       response_type: 'code',
@@ -94,6 +94,10 @@ router.get('/callback', function(req, res) {
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
+        	console.log(body);
+        	res.cookie('user_id', body.id);
+        	res.cookie('refresh_token', refresh_token);
+
           res.redirect('/main/' + querystring.stringify({
             access_token: access_token,
             refresh_token: refresh_token
@@ -136,12 +140,70 @@ router.get('/refresh_token', function(req, res) {
 
 router.get('/search/:query', function(req, res){
 	var query = req.params.query;
-	
-  request.get("https://api.spotify.com/v1/search?q=track:"+ query +"&type=track", function(error, response, body) {
-    if (!error && response.statusCode === 200) {
-      res.send(body);
-    }
-  });
+	// Create a playlist
+	var user_id = req.cookies.user_id;
+
+	var refresh_token = req.cookies.refresh_token;
+
+	var authOptions = {
+	  url: 'https://accounts.spotify.com/api/token',
+	  form: {
+	    grant_type: 'refresh_token',
+	    refresh_token: refresh_token
+	  },
+	  headers: {
+	    'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
+	  },
+	  json: true
+	};
+
+	request.post(authOptions, function(error, response, body) {
+	  if (!error && response.statusCode === 200) {
+	    var access_token = body.access_token
+	  
+			var options = {
+		    url: "https://api.spotify.com/v1/users/"+ user_id +"/playlists",
+		    headers: { 'Authorization': 'Bearer ' + access_token, 'Content-Type': 'application/json' },
+		    json: true,
+		    body: {
+		    	"name": "une playlist cool"
+		    }
+		  };
+
+			request.post(options, function(error, response, body){
+				let playlist_id = body.id;
+				let uris = '';
+
+				request.get("https://api.spotify.com/v1/search?q=artist:"+ query +"&type=track", function(error, response, body) {
+				  if (!error && response.statusCode === 200) {
+
+
+				  	for( let track of JSON.parse(body).tracks.items){
+				  		uris += track.uri + ',';				  		
+				  	}
+
+				  	var addTrackOptions = {
+				  		url: 'https://api.spotify.com/v1/users/'+ user_id +'/playlists/'+ playlist_id +'/tracks?uris=' + uris,
+				  		headers: { 'Authorization': 'Bearer ' + access_token, 'Content-Type': 'application/json' },
+				  		json: true,
+				  	}
+
+				  	request.post(addTrackOptions, function(error, response, body){
+				  		res.send(body);
+				  	})
+				  }
+				});
+			});
+
+			// Request for songs
+
+			// Add to playlist
+
+			// Send back playlist
+			
+		  
+	  }      	
+	})  
 })
 
 module.exports = router;
