@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1 Sublime Blindtest
+
+  form
+    label Search:
+    input(type="text" name="title" placeholder="" id="search-form-query")
+    input(type="button" id="search-form-submit" value="submit")
+
+  script(src="/javascripts/search-form.js")
