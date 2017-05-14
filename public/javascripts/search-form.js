@@ -12,7 +12,7 @@ var searchForm = function(){
 		    if (this.readyState == 4 && this.status == 200) {
 		      for( let track of JSON.parse(this.responseText)){
 		      	console.log(track);
-		      	tracks.push(new Audio(track.preview_url));
+		      	tracks.push(track);
 		      }
 		    }
 		};
