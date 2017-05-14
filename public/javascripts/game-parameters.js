@@ -5,12 +5,11 @@ gameParametersInit = () => {
 	add_player_btn.addEventListener('click', addPlayer, false);
 	submit.addEventListener('click', (ev) => {
 
-		setGameParameters(ev).then((params) => {
+		setGameParameters(ev)
+		.then((params) => {
 			let tracks = params.tracks;
 			let players = params.players;
 
-			// console.log(tracks);
-			// console.log(players);
 			playerInit(tracks);
 		});
 
@@ -32,8 +31,7 @@ setGameParameters = (ev) => {
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				for( let track of JSON.parse(this.responseText)){
-					// console.log(track);
-					tracks.push(new Audio(track.preview_url));
+					tracks.push(track);
 				}
 				players = createPlayers();
 
