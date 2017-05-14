@@ -17,20 +17,23 @@ gameParametersInit = () => {
 }
 
 setGameParameters = (ev) => {
-	
 	ev.preventDefault();
 
 	let tracks = [];
 	let players = [];
 
 	let title = document.getElementById('playlist-title');
-	let query = document.getElementById('search-form-query');
+	let input_search = document.getElementById('search-form-query').value;
+	let filter = document.querySelector('input[name="filter"]:checked').value;
+
+	let query = ( filter != 'keywords') ? filter + ':' + input_search : input_search;
 
 	return new Promise((resolve, reject) => {
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				for( let track of JSON.parse(this.responseText)){
+					console.log(track);
 					tracks.push(track);
 				}
 				players = createPlayers();
@@ -39,7 +42,7 @@ setGameParameters = (ev) => {
 				resolve(params);
 			}
 		};
-		xhttp.open("GET", "/spotify/search/" + query.value + "/" + title.value, true);
+		xhttp.open("GET", "/spotify/search/" + query + "/" + title.value, true);
 		xhttp.send();
 	});
 	

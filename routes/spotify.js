@@ -177,7 +177,7 @@ router.get('/search/:query/:title', function(req, res){
 
 				let playlist_uri = body.uri;
 
-				request.get("https://api.spotify.com/v1/search?q=artist:"+ query +"&type=track", function(error, response, body) {
+				request.get("https://api.spotify.com/v1/search?q="+ query +"&type=track", function(error, response, body) {
 				  if (!error && response.statusCode === 200) {
 				  	tracks = JSON.parse(body).tracks.items;
 				  	for( let track of tracks){

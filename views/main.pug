@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  h1 Sublime Blindtest
+  h1 Troll Blindtest
 
   form(id="add-player-form")
     div(class="form-group")
@@ -14,9 +14,23 @@ block content
   form
     label Playlist name: 
     input(type="text" placeholder="" id="playlist-title")
+    <br/>
     label Search:
     input(type="text" placeholder="" id="search-form-query")
-    label
+    <br/>
+    label Filers:
+    <br/>
+    label Keywords
+      input(type="radio" name="filter" value="keywords" id="keywords-radio")
+    label Artists
+      input(type="radio" name="filter" value="artist" id="artist-radio")
+    //- label Playlist
+    //-   input(type="radio" name="filter" value="playlist" id="playlist-radio")
+    label Genre
+      input(type="radio" name="filter" value="genre" id="genre-radio")
+    label Year
+      input(type="radio" name="filter" value="year" id="year-radio")    
+    <br/>
     input(type="button" id="search-form-submit" value="submit")
   <br/>
   <br/>
