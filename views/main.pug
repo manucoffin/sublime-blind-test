@@ -3,6 +3,14 @@ extends layout
 block content
   h1 Sublime Blindtest
 
+  form(id="add-player-form")
+    div(class="form-group")
+      label Player name:
+      input(type="text" placeholder="" class="player-name")
+
+    input(type="button" id="add-player-btn" value="Add a player")
+
+
   form
     label Playlist name: 
     input(type="text" placeholder="" id="playlist-title")

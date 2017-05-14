@@ -1,4 +1,19 @@
 window.addEventListener('load', ()=>{
-	let tracks = searchForm();
-	playerInit(tracks);
+
+	gameParametersInit();
+
+	
+
+	// let b = setGameParameters().then((params) => {
+	// 	tracks = params.tracks;
+	// 	players = params.players;
+
+	// 	console.log(tracks);
+	// 	console.log(players);
+	// });
+
+	
+	// let tracks = searchForm();
+	// let players = createPlayers();
+	
 })
