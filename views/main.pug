@@ -4,9 +4,18 @@ block content
   h1 Sublime Blindtest
 
   form
+    label Playlist name: 
+    input(type="text" placeholder="" id="playlist-title")
     label Search:
-    input(type="text" name="title" placeholder="" id="search-form-query")
+    input(type="text" placeholder="" id="search-form-query")
     label
     input(type="button" id="search-form-submit" value="submit")
+  <br/>
+  <br/>
+  button(id="play") Play
+  button(id="pause") Pause
+  button(id='next') Next
 
   script(src="/javascripts/search-form.js")
+  script(src="/javascripts/player.js")
+  script(src="/javascripts/init.js")

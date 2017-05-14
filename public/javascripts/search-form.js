@@ -1,4 +1,7 @@
-window.addEventListener('load', ()=>{
+var searchForm = function(){
+	let tracks = [];
+
+	let title = document.getElementById('playlist-title');
 	let query = document.getElementById('search-form-query');
 	let submit = document.getElementById('search-form-submit');
 
@@ -7,12 +10,16 @@ window.addEventListener('load', ()=>{
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 		    if (this.readyState == 4 && this.status == 200) {
-		      // Typical action to be performed when the document is ready:
-					console.log(xhttp.responseText);
+		      for( let track of JSON.parse(this.responseText)){
+		      	console.log(track);
+		      	tracks.push(new Audio(track.preview_url));
+		      }
 		    }
 		};
-		xhttp.open("GET", "/spotify/search/" + query.value, true);
+		xhttp.open("GET", "/spotify/search/" + query.value + "/" + title.value, true);
 		xhttp.send();
 	})
-})
+
+	return tracks;
+}
 

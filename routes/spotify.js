@@ -138,8 +138,9 @@ router.get('/refresh_token', function(req, res) {
   });
 });
 
-router.get('/search/:query', function(req, res){
+router.get('/search/:query/:title', function(req, res){
 	var query = req.params.query;
+	var title = req.params.title;
 	// Create a playlist
 	var user_id = req.cookies.user_id;
 
@@ -166,7 +167,7 @@ router.get('/search/:query', function(req, res){
 		    headers: { 'Authorization': 'Bearer ' + access_token, 'Content-Type': 'application/json' },
 		    json: true,
 		    body: {
-		    	"name": "une playlist cool"
+		    	"name": title
 		    }
 		  };
 
@@ -174,11 +175,12 @@ router.get('/search/:query', function(req, res){
 				let playlist_id = body.id;
 				let uris = '';
 
+				let playlist_uri = body.uri;
+
 				request.get("https://api.spotify.com/v1/search?q=artist:"+ query +"&type=track", function(error, response, body) {
 				  if (!error && response.statusCode === 200) {
-
-
-				  	for( let track of JSON.parse(body).tracks.items){
+				  	tracks = JSON.parse(body).tracks.items;
+				  	for( let track of tracks){
 				  		uris += track.uri + ',';				  		
 				  	}
 
@@ -189,7 +191,8 @@ router.get('/search/:query', function(req, res){
 				  	}
 
 				  	request.post(addTrackOptions, function(error, response, body){
-				  		res.send(body);
+				  		// renvoie l'uri de la playlists
+				  		res.send(tracks);
 				  	})
 				  }
 				});
