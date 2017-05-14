@@ -1,4 +1,7 @@
-#TODO
+# What is ......
+.... is a blind test app based on Spotify API.
+
+# TODO
 - Graphisme
 - Intégrer webpack
 - intégrer react
