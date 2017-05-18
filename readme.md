@@ -1,6 +1,11 @@
 # What is ......
 .... is a blind test app based on Spotify API.
 
+# Launch the app
+`npm start`
+
+`gulp sass:watch`
+
 # TODO
 - Graphisme
 - Intégrer webpack
