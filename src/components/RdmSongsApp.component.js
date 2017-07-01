@@ -1,5 +1,7 @@
-import React, { Component, PropTypes } 	from 'react';
+import React, { Component } 	from 'react';
 import { render } 						from 'react-dom';
+
+import {  BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 
 class RdmSongsApp extends Component {
 
@@ -9,9 +11,10 @@ class RdmSongsApp extends Component {
 
 	render(){
 		return (
-			<div>
-        		Coucou
-			</div>
+      <div>
+        rdm component
+        
+      </div>
 		);
 	}
 }
