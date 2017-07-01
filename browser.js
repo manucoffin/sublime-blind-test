@@ -1,5 +1,25 @@
-import React                from 'react';
-import { render }           from 'react-dom';
-import RdmSongsApp          from './src/components/RdmSongsApp.component';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import RdmSongsApp from './src/components/RdmSongsApp.component';
 
-React.render(<RdmSongsApp/>, document.getElementById('root'));
+
+class App extends Component {
+
+  constructor() {
+		super(...arguments);
+	}
+  
+  ReactDOM.render(){
+		return (
+      <div>
+        
+      </div>
+		);
+	}
+}
+
+ReactDOM.render( (
+   <Router>
+     <App />
+   </Router>
+    ) , document.getElementById('root'));
