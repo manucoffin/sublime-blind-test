@@ -12,7 +12,6 @@ class RdmSongsApp extends Component {
 	render(){
 		return (
       <div>
-        rdm component
         
       </div>
 		);
